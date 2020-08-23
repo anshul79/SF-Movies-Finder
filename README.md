@@ -11,5 +11,7 @@ In this project, there is scope of writing unit tests as well and improving the 
 
 I have written the Node.js code for fetching and validating the details of movies. It can be found at the following link:
 https://github.com/anshul79/Movies-Project
+Also, the implementation of common JS problems and functions can be found at the following link:
+https://github.com/anshul79/Javascript-Fundamentals
 
 Link to Linkedin: https://www.linkedin.com/in/anshul-jain7/
