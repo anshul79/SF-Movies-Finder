@@ -88,12 +88,18 @@ class SearchParams extends React.Component {
           <form>
             <label htmlFor="location">
               Enter your Location:
-              <input
+              <select
                 id="location"
-                type="text"
-                name="mylocation"
                 onChange={this.handleLocationChange}
-              />
+                onBlur={this.handleLocationChange}
+              >
+                <option>Type a location</option>
+                {uniqueLocations.map((loc) => (
+                  <option key={loc} val={loc}>
+                    {loc}
+                  </option>
+                ))}
+              </select>
             </label>
             <button id="movie-submit" onClick={this.onSubmitClick}>Submit</button>
           </form>
