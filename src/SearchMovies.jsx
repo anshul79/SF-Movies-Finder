@@ -7,11 +7,15 @@ class SearchParams extends React.Component {
       error: null,
       isLoaded: false,
       items: [],
-      locations: []
+      uniqueLocations: [],
+      moviesNearLocation: [],
+      currentLocation: ""
     };
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.onSubmitClick = this.onSubmitClick.bind(this);
   }
 
-  fetchUniqueMovies(jsonResponse) {
+  fetchUniqueLocations(jsonResponse) {
     let arr = [];
     let mySet = new Set();
 
@@ -21,7 +25,7 @@ class SearchParams extends React.Component {
       }
     });
     arr = Array.from(mySet);
-    
+
     return arr;
   }
 
@@ -30,11 +34,11 @@ class SearchParams extends React.Component {
       .then((res) => res.json())
       .then(
         (result) => {
-          var uniqueLocations = this.fetchUniqueMovies(result);
+          var uniqueLocations = this.fetchUniqueLocations(result);
           this.setState({
             isLoaded: true,
             items: result,
-            locations: uniqueLocations
+            uniqueLocations: uniqueLocations
           });
         },
         (error) => {
@@ -46,8 +50,34 @@ class SearchParams extends React.Component {
       );
   }
 
+  handleLocationChange(e) {
+    this.setState({currentLocation: e.target.value})
+  }
+
+  onSubmitClick(e) {
+    e.preventDefault();
+    console.log('A name was submitted: ' + this.state.currentLocation);
+    this.findMoviesForLocation(this.state.currentLocation);
+  }
+
+  findMoviesForLocation(location) {
+    let arr = [];
+    let mySet = new Set();
+
+    this.state.items.map(item => {
+      if (item.locations && item.locations === location) {
+        mySet.add(item.title);
+      }
+    });
+    arr = Array.from(mySet);
+    console.log(arr);
+
+    this.setState({moviesNearLocation: arr});
+    return arr;
+  }
+
   render() {
-    const { error, isLoaded, items, locations } = this.state;
+    const { error, isLoaded, items, uniqueLocations, moviesNearLocation } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -62,15 +92,16 @@ class SearchParams extends React.Component {
                 id="location"
                 type="text"
                 name="mylocation"
+                onChange={this.handleLocationChange}
               />
             </label>
-            <button id="movie-submit">Submit</button>
+            <button id="movie-submit" onClick={this.onSubmitClick}>Submit</button>
           </form>
           <br />
           <br />
-          All locations:
+          Movies Near You:
           <ul>
-            {locations.map(item => (
+            {moviesNearLocation.map(item => (
               <li key={item}>
                 {item}
               </li>
