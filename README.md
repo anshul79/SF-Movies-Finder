@@ -5,7 +5,7 @@ The user enters the location in the dropdown provided. Then on the submit button
 
 The solution focuses front-end JS code.
 
-I have kept the architecture simple as this is the first React project I have made.
+Type 'npm run dev' to run the application.
 
 In this project, there is scope of writing unit tests as well and improving the UI (CSS).
 
