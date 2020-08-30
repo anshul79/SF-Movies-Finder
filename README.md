@@ -5,7 +5,7 @@ The user enters the location in the dropdown provided. Then on the submit button
 
 The solution focuses front-end JS code.
 
-Type 'npm run dev' to run the application.
+Type 'npm start' to run the application.
 
 In this project, there is scope of writing unit tests as well and improving the UI (CSS).
 
